@@ -643,6 +643,6 @@ class PublicQuoteRequestAdmin(MassachusettsBaseAdmin):
     export_as_csv.short_description = "Export selected requests to CSV"
 
 # Admin site configuration with timezone indication
-admin.site.site_header = "DBD I&T Administration (All times EST/EDT)"
-admin.site.site_title = "DBD I&T Admin Portal"
-admin.site.index_title = "Welcome to DBD I&T Administration"
+admin.site.site_header = "CGSDLOGISTICS Administration (All times EST/EDT)"
+admin.site.site_title = "CGSDLOGISTICS Admin Portal"
+admin.site.index_title = "Welcome to CGSDLOGISTICS Administration"

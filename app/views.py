@@ -405,7 +405,7 @@ def export_document(request, pk):
         )
 
         # En-tête
-        elements.append(Paragraph("DBD I&T", title_style))
+        elements.append(Paragraph("CGSDLOGISTICS", title_style))
         elements.append(Paragraph("Payment Statement", styles['Heading1']))
         elements.append(Spacer(1, 20))
 
@@ -417,8 +417,9 @@ def export_document(request, pk):
         # Informations de l'entreprise
         elements.append(Paragraph("From:", styles['Heading2']))
         elements.append(Paragraph(payroll.company_address or "500 GROSSMAN Drive, BRAINTREE, MA, 02184", styles['Normal']))
-        elements.append(Paragraph(payroll.company_phone or "+1 774 5080492", styles['Normal']))
-        elements.append(Paragraph(payroll.company_email or "dbdiandt@gmail.com", styles['Normal']))
+        elements.append(Paragraph(payroll.company_phone or "+1 +1 (774) 564-8187
+", styles['Normal']))
+        elements.append(Paragraph(payroll.company_email or "cgsdlogistics@gmail.com", styles['Normal']))
         elements.append(Spacer(1, 20))
 
         # Informations de l'interprète
@@ -480,7 +481,7 @@ def export_document(request, pk):
         # Pied de page
         elements.append(Spacer(1, 30))
         elements.append(Paragraph(f"Generated on {datetime.now().strftime('%B %d, %Y')}", styles['Normal']))
-        elements.append(Paragraph(f"© {datetime.now().year}  DBD I&T Translation. All rights reserved.", styles['Normal']))
+        elements.append(Paragraph(f"© {datetime.now().year}  CGSDLOGISTICS Translation. All rights reserved.", styles['Normal']))
 
         # Génération du PDF
         doc.build(elements)
@@ -572,7 +573,7 @@ class PublicQuoteRequestView(CreateView):
         customer_email_txt = render_to_string('emails/quote_request_confirmation.txt', customer_context)
 
         send_mail(
-            subject='Quote Request Received - DBD I&T',
+            subject='Quote Request Received - CGSDLOGISTICS',
             message=customer_email_txt,
             from_email=settings.DEFAULT_FROM_EMAIL,
             recipient_list=[quote_request.email],
@@ -634,17 +635,17 @@ class ContactView(CreateView):
 
         # Send confirmation email to the sender
         send_mail(
-            subject='Thank you for contacting DBD I&T',
+            subject='Thank you for contacting CGSDLOGISTICS',
             message=f"""Dear {contact.name},
 
-Thank you for contacting DBD I&T. We have received your message and will get back to you shortly.
+Thank you for contacting CGSDLOGISTICS. We have received your message and will get back to you shortly.
 
 Your message details:
 Subject: {contact.subject}
 Reference Number: #{contact.id}
 
 Best regards,
-DBD I&T Team""",
+CGSDLOGISTICS Team""",
             from_email=settings.DEFAULT_FROM_EMAIL,
             recipient_list=[contact.email],
             fail_silently=False,
@@ -837,7 +838,7 @@ class ClientRegistrationStep2View(FormView):
                 }
             )
 
-            messages.success(self.request, "Registration completed successfully! Welcome to DBD I&T.")
+            messages.success(self.request, "Registration completed successfully! Welcome to CGSDLOGISTICS.")
             return super().form_valid(form)
 
         except Exception as e:
@@ -2071,7 +2072,7 @@ TZ_BOSTON = pytz.timezone('America/New_York')
 def generate_ics_file(assignment):
     """Génère le fichier ICS pour un rendez-vous d'interprétation."""
     cal = Calendar()
-    cal.add('prodid', '-//DBD I&T//Interpretation Assignment//EN')
+    cal.add('prodid', '-//CGSDLOGISTICS//Interpretation Assignment//EN')
     cal.add('version', '2.0')
     
     event = Event()
@@ -2119,7 +2120,7 @@ def generate_ics_file(assignment):
 
 def send_completion_email(assignment):
     """Envoie un email de confirmation de complétion à l'interprète."""
-    subject = 'Assignment Completion Confirmation - DBD I&T'
+    subject = 'Assignment Completion Confirmation - CGSDLOGISTICS'
     
     duration = assignment.end_time - assignment.start_time
     hours = duration.total_seconds() / 3600
@@ -2167,7 +2168,7 @@ def send_completion_email(assignment):
 
 def send_confirmation_email(assignment):
     """Envoie l'email de confirmation avec le fichier ICS."""
-    subject = 'Assignment Confirmation - DBD I&T'
+    subject = 'Assignment Confirmation - CGSDLOGISTICS'
     
     # Conversion en heure locale Boston
     start_local = timezone.localtime(assignment.start_time, TZ_BOSTON)

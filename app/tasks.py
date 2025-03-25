@@ -19,7 +19,7 @@ def send_welcome_email(user_id):
         # Définir le contenu selon le rôle
         if user.role == 'CLIENT':
             template_name = 'emails/welcome_client.html'
-            subject = 'Welcome to DBD I&T - Your Trusted Interpretation Partner'
+            subject = 'Welcome to CGSDLOGISTICS - Your Trusted Interpretation Partner'
             context = {
                 'name': user.username,
                 'mission': 'Providing exceptional interpretation services',
@@ -34,7 +34,7 @@ def send_welcome_email(user_id):
             }
         else:  # INTERPRETER
             template_name = 'emails/welcome_interpreter.html'
-            subject = 'Welcome to DBD I&T - Join Our Interpreter Network'
+            subject = 'Welcome to CGSDLOGISTICS - Join Our Interpreter Network'
             context = {
                 'name': user.username,
                 'benefits': [
@@ -81,27 +81,27 @@ def send_quote_request_status_email(quote_request_id):
         status_templates = {
             'PENDING': {
                 'template': 'emails/quote_request_pending.html',
-                'subject': 'Your Quote Request Has Been Received - DBD I&T'
+                'subject': 'Your Quote Request Has Been Received - CGSDLOGISTICS'
             },
             'PROCESSING': {
                 'template': 'emails/quote_request_processing.html',
-                'subject': 'Your Quote Request is Being Processed - DBD I&T'
+                'subject': 'Your Quote Request is Being Processed - CGSDLOGISTICS'
             },
             'QUOTED': {
                 'template': 'emails/quote_request_quoted.html',
-                'subject': 'Your Quote is Ready - DBD I&T'
+                'subject': 'Your Quote is Ready - CGSDLOGISTICS'
             },
             'ACCEPTED': {
                 'template': 'emails/quote_request_accepted.html',
-                'subject': 'Quote Request Accepted - DBD I&T'
+                'subject': 'Quote Request Accepted - CGSDLOGISTICS'
             },
             'REJECTED': {
                 'template': 'emails/quote_request_rejected.html',
-                'subject': 'Quote Request Status Update - DBD I&T'
+                'subject': 'Quote Request Status Update - CGSDLOGISTICS'
             },
             'EXPIRED': {
                 'template': 'emails/quote_request_expired.html',
-                'subject': 'Quote Request Expired - DBD I&T'
+                'subject': 'Quote Request Expired - CGSDLOGISTICS'
             }
         }
         

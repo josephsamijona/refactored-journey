@@ -282,7 +282,7 @@ class AssignmentAdminMixin:
         L'heure est déjà en fuseau Boston.
         """
         cal = icalendar.Calendar()
-        cal.add('prodid', '-//DBD I&T Assignment System//EN')
+        cal.add('prodid', '-//CGSDLOGISTICS Assignment System//EN')
         cal.add('version', '2.0')
         cal.add('method', 'REQUEST')
         
@@ -317,7 +317,7 @@ class AssignmentAdminMixin:
         # ORGANIZER
         organizer_email = settings.DEFAULT_FROM_EMAIL
         organizer = icalendar.vCalAddress(f"MAILTO:{organizer_email}")
-        organizer.params['CN'] = "DBD I&T System"
+        organizer.params['CN'] = "CGSDLOGISTICS System"
         event['organizer'] = organizer
 
         # ATTENDEE (l'interprète)

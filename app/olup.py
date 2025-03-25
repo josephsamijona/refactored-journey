@@ -118,7 +118,7 @@ class AssignmentResponseBaseMixin:
         
         # Création d'un événement iCalendar
         cal = Calendar()
-        cal.add('PRODID', '-//DBD I&TAssignment System//EN')
+        cal.add('PRODID', '-//CGSDLOGISTICSAssignment System//EN')
         cal.add('VERSION', '2.0')
         cal.add('METHOD', 'REQUEST')  # Indique qu'il s'agit d'une invitation
 
@@ -150,7 +150,7 @@ class AssignmentResponseBaseMixin:
         # ORGANIZER (expéditeur)
         organizer_email = settings.DEFAULT_FROM_EMAIL
         organizer = vCalAddress(f"MAILTO:{organizer_email}")
-        organizer.params['CN'] = "DBD I&T System"
+        organizer.params['CN'] = "CGSDLOGISTICS System"
         event['ORGANIZER'] = organizer
 
         # ATTENDEE (interprète), RSVP=TRUE pour Outlook/Apple Mail

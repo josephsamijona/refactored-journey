@@ -665,6 +665,6 @@ class PublicQuoteRequestAdmin(admin.ModelAdmin):
     
 
 # Admin site configuration
-admin.site.site_header = "DBD I&T Administration"
-admin.site.site_title = "DBD I&T Admin Portal"
-admin.site.index_title = "Welcome to DBD I&T Administration"
+admin.site.site_header = "CGSDLOGISTICS Administration"
+admin.site.site_title = "CGSDLOGISTICS Admin Portal"
+admin.site.index_title = "Welcome to CGSDLOGISTICS Administration"

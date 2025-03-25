@@ -1,6 +1,6 @@
 Dear {{ quote_request.full_name }},
 
-Thank you for requesting a quote from DBD I&T - Your Trusted Language Services Partner.
+Thank you for requesting a quote from CGSDLOGISTICS - Your Trusted Language Services Partner.
 
 Your request details:
 ------------------------------------------
@@ -20,7 +20,7 @@ Next Steps:
 
 Would you like to streamline future requests?
 ------------------------------------------
-Create your DBD I&T account using your email ({{ quote_request.email }}) to:
+Create your CGSDLOGISTICS account using your email ({{ quote_request.email }}) to:
 - Track your quote requests and projects
 - Access our client portal
 - Receive priority support
@@ -34,10 +34,10 @@ Contact our support team:
 Email: support@dbdint.co
 Phone: 1-800-XXX-XXXX
 
-Thank you for choosing DBD I&T. We look forward to serving you.
+Thank you for choosing CGSDLOGISTICS. We look forward to serving you.
 
 Best regards,
-The DBD I&T Team
+The CGSDLOGISTICS Team
 
 ------------------------------------------
 This is an automated message. Please do not reply to this email.

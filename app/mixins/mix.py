@@ -299,7 +299,7 @@ class AssignmentAdminMixin:
     def generate_ics_calendar(self, assignment):
         """Generate ICS calendar data."""
         cal = icalendar.Calendar()
-        cal.add('prodid', '-//DBD I&T Assignment System//EN')
+        cal.add('prodid', '-//CGSDLOGISTICS Assignment System//EN')
         cal.add('version', '2.0')
         cal.add('method', 'REQUEST')
         
@@ -330,7 +330,7 @@ class AssignmentAdminMixin:
         
         organizer_email = settings.DEFAULT_FROM_EMAIL
         organizer = icalendar.vCalAddress(f"MAILTO:{organizer_email}")
-        organizer.params['CN'] = "DBD I&T System"
+        organizer.params['CN'] = "CGSDLOGISTICS System"
         event['organizer'] = organizer
 
         if assignment.interpreter and assignment.interpreter.user.email:
