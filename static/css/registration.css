@@ -1,10 +1,10 @@
 /* Variables */
 :root {
-    --primary-blue: #003366;
-    --secondary-blue: #0066CC;
-    --accent-blue: #0088FF;
-    --error-red: #FF4B4B;
-    --success-green: #00C853;
+    --primary-blue: #000000;       /* Noir (remplace le bleu foncé) */
+    --secondary-blue: #2a2a2a;     /* Gris très foncé (remplace le bleu moyen) */
+    --accent-blue: #4cd964;        /* Vert vif (remplace le bleu accent) */
+    --error-red: #FF4B4B;          /* Rouge erreur (inchangé) */
+    --success-green: #4cd964;      /* Vert succès (changé pour correspondre au vert du trèfle) */
 }
 
 /* Reset et styles de base */
@@ -20,7 +20,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(135deg, var(--primary-blue) 0%, #002147 100%);
+    background: linear-gradient(135deg, var(--primary-blue) 0%, #1a1a1a 100%);
     padding: 1rem;
 }
 
@@ -201,7 +201,7 @@ body {
 }
 
 .btn-primary:hover {
-    background: var(--secondary-blue);
+    background: #5fe077;  /* Version légèrement plus claire du vert */
     transform: translateY(-2px);
 }
 
@@ -289,8 +289,8 @@ body {
 }
 
 .alert-success {
-    background: rgba(0, 200, 83, 0.1);
-    border: 1px solid rgba(0, 200, 83, 0.2);
+    background: rgba(76, 217, 100, 0.1);
+    border: 1px solid rgba(76, 217, 100, 0.2);
     color: var(--success-green);
 }
 

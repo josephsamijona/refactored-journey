@@ -5,185 +5,186 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CGSDLOGISTICS - Assignment {{ action|title }}</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #f8f9fc;
-            color: #444;
-            line-height: 1.6;
-        }
-        
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Poppins', sans-serif;
+        background-color: #f8f9fc;
+        color: #444;
+        line-height: 1.6;
+    }
+
+    .container {
+        max-width: 600px;
+        margin: 0 auto;
+        background-color: #ffffff;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+
+    .header {
+        background: linear-gradient(135deg, #000000, #2a2a2a);
+        padding: 25px;
+        text-align: center;
+        color: white;
+        position: relative;
+    }
+
+    .logo {
+        max-width: 180px;
+        margin-bottom: 15px;
+    }
+
+    .header h2 {
+        font-weight: 600;
+        margin: 0;
+        font-size: 22px;
+        letter-spacing: 0.5px;
+    }
+
+    .content {
+        padding: 30px;
+        background-color: white;
+    }
+
+    .details-card {
+        background-color: #f0fff3;
+        border-radius: 10px;
+        padding: 25px;
+        margin-bottom: 25px;
+        border-left: 5px solid #4cd964;
+    }
+
+    .detail-row {
+        margin-bottom: 12px;
+        display: flex;
+        align-items: flex-start;
+    }
+
+    .detail-row:last-child {
+        margin-bottom: 0;
+    }
+
+    .detail-row strong {
+        width: 100px;
+        color: #4cd964;
+        font-weight: 600;
+        flex-shrink: 0;
+    }
+
+    .next-steps {
+        margin-bottom: 25px;
+    }
+
+    .next-steps h3 {
+        color: #4cd964;
+        font-size: 18px;
+        margin-bottom: 15px;
+        font-weight: 600;
+    }
+
+    .next-steps ul {
+        list-style-type: none;
+        padding-left: 5px;
+    }
+
+    .next-steps ul li {
+        position: relative;
+        padding-left: 25px;
+        margin-bottom: 12px;
+    }
+
+    .next-steps ul li:before {
+        content: '✓';
+        position: absolute;
+        left: 0;
+        color: #4cd964;
+        font-weight: bold;
+    }
+
+    .notice-box {
+        background-color: #fff5f5;
+        border-left: 5px solid #FF4B4B;
+        border-radius: 10px;
+        padding: 15px 20px;
+        margin-bottom: 25px;
+    }
+
+    .notice-box h3 {
+        color: #FF4B4B;
+        margin-bottom: 10px;
+        font-size: 18px;
+        font-weight: 600;
+    }
+
+    .notice-box p {
+        margin: 0;
+    }
+
+    .action-button {
+        display: inline-block;
+        background: linear-gradient(135deg, #4cd964, #3abf53);
+        color: white;
+        padding: 12px 24px;
+        border-radius: 50px;
+        text-decoration: none;
+        font-weight: 600;
+        text-transform: uppercase;
+        font-size: 14px;
+        letter-spacing: 0.5px;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 6px rgba(76, 217, 100, 0.3);
+    }
+
+    .action-button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(76, 217, 100, 0.4);
+        background: linear-gradient(135deg, #5fe077, #4cd964);
+    }
+
+    .footer {
+        background-color: #f0fff3;
+        text-align: center;
+        padding: 20px;
+        font-size: 14px;
+        color: #6b7280;
+    }
+
+    @media only screen and (max-width: 600px) {
         .container {
-            max-width: 600px;
-            margin: 0 auto;
-            background-color: #ffffff;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            margin-top: 20px;
-            margin-bottom: 20px;
-        }
-        
-        .header {
-            background: linear-gradient(135deg, #1a56db, #0f3b8d);
-            padding: 25px;
-            text-align: center;
-            color: white;
-            position: relative;
-        }
-        
-        .logo {
-            max-width: 180px;
-            margin-bottom: 15px;
-        }
-        
-        .header h2 {
-            font-weight: 600;
-            margin: 0;
-            font-size: 22px;
-            letter-spacing: 0.5px;
-        }
-        
-        .content {
-            padding: 30px;
-            background-color: white;
-        }
-        
-        .details-card {
-            background-color: #f0f7ff;
-            border-radius: 10px;
-            padding: 25px;
-            margin-bottom: 25px;
-            border-left: 5px solid #1a56db;
-        }
-        
-        .detail-row {
-            margin-bottom: 12px;
-            display: flex;
-            align-items: flex-start;
-        }
-        
-        .detail-row:last-child {
+            border-radius: 0;
+            margin-top: 0;
             margin-bottom: 0;
         }
         
+        .header {
+            padding: 20px 15px;
+        }
+        
+        .content {
+            padding: 20px 15px;
+        }
+        
+        .detail-row {
+            flex-direction: column;
+        }
+        
         .detail-row strong {
-            width: 100px;
-            color: #1a56db;
-            font-weight: 600;
-            flex-shrink: 0;
+            width: 100%;
+            margin-bottom: 3px;
         }
-        
-        .next-steps {
-            margin-bottom: 25px;
-        }
-        
-        .next-steps h3 {
-            color: #1a56db;
-            font-size: 18px;
-            margin-bottom: 15px;
-            font-weight: 600;
-        }
-        
-        .next-steps ul {
-            list-style-type: none;
-            padding-left: 5px;
-        }
-        
-        .next-steps ul li {
-            position: relative;
-            padding-left: 25px;
-            margin-bottom: 12px;
-        }
-        
-        .next-steps ul li:before {
-            content: '✓';
-            position: absolute;
-            left: 0;
-            color: #1a56db;
-            font-weight: bold;
-        }
-        
-        .notice-box {
-            background-color: #fff5f5;
-            border-left: 5px solid #e53e3e;
-            border-radius: 10px;
-            padding: 15px 20px;
-            margin-bottom: 25px;
-        }
-        
-        .notice-box h3 {
-            color: #e53e3e;
-            margin-bottom: 10px;
-            font-size: 18px;
-            font-weight: 600;
-        }
-        
-        .notice-box p {
-            margin: 0;
-        }
-        
-        .action-button {
-            display: inline-block;
-            background: linear-gradient(135deg, #1a56db, #0f3b8d);
-            color: white;
-            padding: 12px 24px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            text-transform: uppercase;
-            font-size: 14px;
-            letter-spacing: 0.5px;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 6px rgba(26, 86, 219, 0.3);
-        }
-        
-        .action-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(26, 86, 219, 0.4);
-        }
-        
-        .footer {
-            background-color: #f0f7ff;
-            text-align: center;
-            padding: 20px;
-            font-size: 14px;
-            color: #6b7280;
-        }
-        
-        @media only screen and (max-width: 600px) {
-            .container {
-                border-radius: 0;
-                margin-top: 0;
-                margin-bottom: 0;
-            }
-            
-            .header {
-                padding: 20px 15px;
-            }
-            
-            .content {
-                padding: 20px 15px;
-            }
-            
-            .detail-row {
-                flex-direction: column;
-            }
-            
-            .detail-row strong {
-                width: 100%;
-                margin-bottom: 3px;
-            }
-        }
-    </style>
+    }
+</style>
 </head>
 <body>
     <div class="container">

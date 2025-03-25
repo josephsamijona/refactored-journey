@@ -9,16 +9,16 @@
 /* Configuration des variables CSS */
 :root {
     /* Couleurs principales */
-    --primary-dark: #0A1E40;     /* Remplacé par le bleu marine foncé du fond */
-    --primary-green: #0D6EFD;    /* Remplacé par le bleu vif des boutons principaux */
-    --primary-teal: #4D96FF;     /* Remplacé par le bleu clair du texte "We are your voice!" */
-    --gradient-start: #0A1E40;   /* Début du gradient avec le bleu marine foncé */
-    --gradient-end: #0D6EFD;     /* Fin du gradient avec le bleu vif */
+    --primary-dark: #000000;     /* Remplacé par noir */
+    --primary-green: #4cd964;    /* Remplacé par le vert vif */
+    --primary-teal: #4cd964;     /* Remplacé par le vert vif */
+    --gradient-start: #000000;   /* Début du gradient avec noir */
+    --gradient-end: #2a2a2a;     /* Fin du gradient avec gris foncé */
 
     /* Couleurs fonctionnelles */
-    --success: #4CAF50;
-    --warning: #FFA500;
-    --danger: #DC3545;
+    --success: #4cd964;          /* Adapté au vert de CGSD */
+    --warning: #FFA500;          /* Inchangé */
+    --danger: #DC3545;           /* Inchangé */
     
     /* Couleurs neutres */
     --white: #FFFFFF;
@@ -102,7 +102,7 @@ body {
     left: 0;
     right: 0;
     height: 60px;
-    background: rgba(27, 31, 43, 0.95);
+    background: rgba(0, 0, 0, 0.95);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     z-index: var(--z-top);
@@ -116,7 +116,7 @@ body {
     left: 0;
     right: 0;
     height: 70px;
-    background: rgba(27, 31, 43, 0.95);
+    background: rgba(0, 0, 0, 0.95);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     z-index: var(--z-top);
@@ -264,7 +264,7 @@ body {
 /* Support du mode sombre */
 @media (prefers-color-scheme: dark) {
     :root {
-        --primary-dark: #0D1117;
+        --primary-dark: #000000;
     }
 }
 

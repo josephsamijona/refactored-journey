@@ -1,13 +1,13 @@
 /* Root Variables */
 :root {
-    --primary-blue: #003366;
-    --secondary-blue: #0066CC;
-    --accent-blue: #0088FF;
-    --white: #FFFFFF;
-    --light-gray: #F5F7FA;
-    --gray: #6B7280;
-    --error-red: #DC2626;
-    --success-green: #059669;
+    --primary-blue: #000000;        /* Noir (remplace le bleu foncé) */
+    --secondary-blue: #2a2a2a;      /* Gris très foncé (remplace le bleu moyen) */
+    --accent-blue: #4cd964;         /* Vert vif (remplace le bleu accent) */
+    --white: #FFFFFF;               /* Blanc (inchangé) */
+    --light-gray: #F5F7FA;          /* Gris clair (inchangé) */
+    --gray: #6B7280;                /* Gris (inchangé) */
+    --error-red: #DC2626;           /* Rouge erreur (inchangé) */
+    --success-green: #4cd964;       /* Vert succès (changé pour correspondre au vert du trèfle) */
 }
 
 /* Global Reset and Base Styles */
@@ -21,7 +21,7 @@ body {
     font-family: 'Inter', sans-serif;
     margin: 0;
     padding: 0;
-    background: linear-gradient(135deg, var(--primary-blue) 0%, #002147 100%);
+    background: linear-gradient(135deg, var(--primary-blue) 0%, #1a1a1a 100%);
     min-height: 100vh;
     color: var(--gray);
     line-height: 1.5;
@@ -202,7 +202,7 @@ textarea:focus {
     outline: none;
     border-color: var(--accent-blue);
     background-color: var(--white);
-    box-shadow: 0 0 0 4px rgba(0, 136, 255, 0.1);
+    box-shadow: 0 0 0 4px rgba(76, 217, 100, 0.1);
 }
 
 /* Button Styles */
@@ -224,7 +224,7 @@ textarea:focus {
 
 .btn-next:hover,
 .btn-submit:hover {
-    background: var(--secondary-blue);
+    background: #5fe077;  /* Version légèrement plus claire du vert */
     transform: translateY(-1px);
 }
 
@@ -266,7 +266,7 @@ textarea.error {
 }
 
 .alert-success {
-    background-color: rgba(5, 150, 105, 0.1);
+    background-color: rgba(76, 217, 100, 0.1);
     color: var(--success-green);
     border: 1px solid var(--success-green);
 }
@@ -342,7 +342,7 @@ textarea.error {
 
 .btn-next:hover,
 .btn-submit:hover {
-    background: var(--secondary-blue);
+    background: #5fe077;  /* Version légèrement plus claire du vert */
     transform: translateY(-1px);
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
@@ -392,7 +392,7 @@ input[type="number"]:focus {
     outline: none;
     border-color: var(--accent-blue);
     background-color: var(--white);
-    box-shadow: 0 0 0 4px rgba(0, 136, 255, 0.1);
+    box-shadow: 0 0 0 4px rgba(76, 217, 100, 0.1);
 }
 
 .duration-input-wrapper {
