@@ -1,10 +1,10 @@
 /* Variables & Reset */
 :root {
-    --primary-blue: #003366;
-    --secondary-blue: #0066CC;
-    --accent-blue: #0088FF;
-    --success-green: #28a745;
-    --error-red: #FF4B4B;
+    --primary-blue: #000000;       /* Remplacé par noir */
+    --secondary-blue: #2a2a2a;     /* Remplacé par gris très foncé */
+    --accent-blue: #4cd964;        /* Remplacé par le vert vif */
+    --success-green: #4cd964;      /* Remplacé par le vert vif */
+    --error-red: #FF4B4B;          /* Inchangé */
     --step-inactive: rgba(255, 255, 255, 0.3);
     --step-active: var(--accent-blue);
     --step-complete: var(--success-green);
@@ -19,7 +19,7 @@
 body {
     font-family: 'Inter', sans-serif;
     min-height: 100vh;
-    background: linear-gradient(135deg, var(--primary-blue) 0%, #002147 100%);
+    background: linear-gradient(135deg, var(--primary-blue) 0%, #1a1a1a 100%);
     padding: 2rem;
 }
 
@@ -77,7 +77,7 @@ body {
 .step.active {
     background: var(--step-active);
     transform: scale(1.1);
-    box-shadow: 0 0 20px rgba(0, 136, 255, 0.4);
+    box-shadow: 0 0 20px rgba(76, 217, 100, 0.4);
 }
 
 .step.complete {
@@ -182,7 +182,7 @@ body {
 }
 
 .btn-next:hover {
-    background: var(--secondary-blue);
+    background: #5fe077;  /* Version légèrement plus claire du vert */
 }
 
 /* Messages and Errors */
