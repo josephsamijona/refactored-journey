@@ -846,8 +846,7 @@ class PayrollDocumentForm(forms.ModelForm):
             }),
             'company_phone': forms.TextInput(attrs={
                 'class': 'form-input', 
-                'placeholder': '+1 +1 (774) 564-8187
-'
+                'placeholder': ' (774) 564-8187'
             }),
             'company_email': forms.EmailInput(attrs={
                 'class': 'form-input', 
@@ -877,8 +876,7 @@ class PayrollDocumentForm(forms.ModelForm):
         if not cleaned_data.get('company_address'):
             cleaned_data['company_address'] = '500 GROSSMAN Drive #1064 Braintree, MA 02184'
         if not cleaned_data.get('company_phone'):
-            cleaned_data['company_phone'] = '+1 +1 (774) 564-8187
-'
+            cleaned_data['company_phone'] = ' (774) 564-8187'
         if not cleaned_data.get('company_email'):
             cleaned_data['company_email'] = 'cgsdlogistics@gmail.com'
         return cleaned_data

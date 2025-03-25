@@ -417,8 +417,7 @@ def export_document(request, pk):
         # Informations de l'entreprise
         elements.append(Paragraph("From:", styles['Heading2']))
         elements.append(Paragraph(payroll.company_address or "500 GROSSMAN Drive, BRAINTREE, MA, 02184", styles['Normal']))
-        elements.append(Paragraph(payroll.company_phone or "+1 +1 (774) 564-8187
-", styles['Normal']))
+        elements.append(Paragraph(payroll.company_phone or " (774) 564-8187", styles['Normal']))
         elements.append(Paragraph(payroll.company_email or "cgsdlogistics@gmail.com", styles['Normal']))
         elements.append(Spacer(1, 20))
 
