@@ -868,3 +868,44 @@ class Deduction(models.Model):
     
     def __str__(self):
         return f"{self.get_deduction_type_display()}: {self.description} - ${self.amount}"
+    
+class CompanySignature(models.Model):
+    """Stocke la signature du CEO/Président"""
+    name = models.CharField(max_length=255)  # Nom du CEO/signataire
+    title = models.CharField(max_length=255)  # Titre (ex: "Chief Executive Officer/President")
+    signature_data = models.TextField()  # Données de la signature en base64
+    is_active = models.BooleanField(default=True)  # Pour indiquer quelle signature est active
+    created_at = models.DateTimeField(auto_now_add=True)
+    
+    def __str__(self):
+        return f"{self.name} - {self.title}"
+    
+    class Meta:
+        verbose_name = "Company Signature"
+        verbose_name_plural = "Company Signatures"
+
+class InterpreterContract(models.Model):
+    # Informations de base
+    interpreter_name = models.CharField(max_length=255)  # Nom saisi manuellement
+    interpreter_name_typed = models.CharField(max_length=255)  # Nom tapé
+    email = models.EmailField()
+    phone = models.CharField(max_length=20)
+    
+    # Signature manuscrite
+    signature_data = models.TextField()  # Données de la signature en base64
+    signature_date = models.DateTimeField(default=timezone.now)
+    
+    # Signature de l'entreprise utilisée
+    company_signature = models.ForeignKey(
+        CompanySignature, 
+        on_delete=models.SET_NULL,
+        null=True,
+        related_name='contracts'
+    )
+    
+    # Informations additionnelles
+    ip_address = models.GenericIPAddressField(null=True, blank=True)  # Pour audit
+    contract_pdf = models.FileField(upload_to='contracts/', null=True, blank=True)
+    
+    def __str__(self):
+        return f"Contract: {self.interpreter_name} - {self.signature_date.strftime('%Y-%m-%d')}"

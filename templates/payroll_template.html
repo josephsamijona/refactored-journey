@@ -12,184 +12,185 @@
     <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 
     <style>
-        /* Style général de la page */
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: 'Arial', sans-serif;
-            background-color: #f5f5f5;
-        }
+/* Style général de la page */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: #f5f5f5;
+}
 
-        .payroll-template {
-            background-color: white;
-            max-width: 1000px;
-            margin: 20px auto;
-            padding: 40px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-            position: relative;
-        }
+.payroll-template {
+    background-color: white;
+    max-width: 1000px;
+    margin: 20px auto;
+    padding: 40px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    position: relative;
+    color: #333333;
+}
 
-        /* Style du bouton de téléchargement */
-        .pdf-download-btn {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: #ffffff;
-            border: 1px solid #e0e0e0;
-            padding: 8px 12px;
-            border-radius: 4px;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            cursor: pointer;
-            font-size: 12px;
-            color: #666;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-            transition: all 0.2s ease;
-            z-index: 1000;
-        }
+/* Style du bouton de téléchargement */
+.pdf-download-btn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: #ffffff;
+    border: 1px solid #4CAF50;
+    padding: 8px 12px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    cursor: pointer;
+    font-size: 12px;
+    color: #4CAF50;
+    box-shadow: 0 1px 3px rgba(76,175,80,0.3);
+    transition: all 0.2s ease;
+    z-index: 1000;
+}
 
-        .pdf-download-btn:hover {
-            background: #f8f8f8;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.15);
-        }
+.pdf-download-btn:hover {
+    background: #f8f8f8;
+    box-shadow: 0 2px 4px rgba(76,175,80,0.4);
+}
 
-        /* Style pour l'entête */
-        .template-header {
-            position: relative;
-            background: linear-gradient(135deg, #003B71 0%, #0056a4 100%);
-            padding: 30px;
-            border-radius: 8px 8px 0 0;
-            margin-bottom: 40px;
-        }
+/* Style pour l'entête */
+.template-header {
+    position: relative;
+    background: linear-gradient(135deg, #4CAF50 0%, #8BC34A 100%);
+    padding: 30px;
+    border-radius: 8px 8px 0 0;
+    margin-bottom: 40px;
+}
 
-        .logo-container {
-            text-align: center;
-        }
+.logo-container {
+    text-align: center;
+}
 
-        .company-logo {
-            max-width: 200px;
-            height: auto;
-        }
+.company-logo {
+    max-width: 200px;
+    height: auto;
+}
 
-        .wave-shape {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-        }
+.wave-shape {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+}
 
-        /* Style pour les informations du document */
-        .document-info {
-            margin-bottom: 40px;
-        }
+/* Style pour les informations du document */
+.document-info {
+    margin-bottom: 40px;
+}
 
-        .document-title {
-            color: #003B71;
-            font-size: 28px;
-            margin-bottom: 15px;
-        }
+.document-title {
+    color: #4CAF50;
+    font-size: 28px;
+    margin-bottom: 15px;
+}
 
-        .document-meta {
-            display: flex;
-            gap: 20px;
-            color: #666;
-        }
+.document-meta {
+    display: flex;
+    gap: 20px;
+    color: #666;
+}
 
-        /* Style pour les sections d'adresse */
-        .address-section {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-            margin-bottom: 40px;
-        }
+/* Style pour les sections d'adresse */
+.address-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    margin-bottom: 40px;
+}
 
-        .address-block {
-            padding: 20px;
-            background: #f8f9fa;
-            border-radius: 8px;
-        }
+.address-block {
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 8px;
+}
 
-        .contact-details {
-            margin-top: 15px;
-        }
+.contact-details {
+    margin-top: 15px;
+}
 
-        .contact-info {
-            margin: 8px 0;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
+.contact-info {
+    margin: 8px 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
 
-        /* Style pour le tableau des services */
-        .services-table-container {
-            margin-top: 20px;
-            overflow-x: auto;
-        }
+/* Style pour le tableau des services */
+.services-table-container {
+    margin-top: 20px;
+    overflow-x: auto;
+}
 
-        .services-table {
-            width: 100%;
-            border-collapse: collapse;
-        }
+.services-table {
+    width: 100%;
+    border-collapse: collapse;
+}
 
-        .services-table th,
-        .services-table td {
-            padding: 12px;
-            text-align: left;
-            border-bottom: 1px solid #e0e0e0;
-        }
+.services-table th,
+.services-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #e0e0e0;
+}
 
-        .services-table th {
-            background-color: #f8f9fa;
-            color: #003B71;
-        }
+.services-table th {
+    background-color: #f8f9fa;
+    color: #4CAF50;
+}
 
-        /* Style pour la section total */
-        .total-section {
-            margin-top: 30px;
-            padding: 20px;
-            background: #f8f9fa;
-            border-radius: 8px;
-        }
+/* Style pour la section total */
+.total-section {
+    margin-top: 30px;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 8px;
+}
 
-        .total-details {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
+.total-details {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
 
-        .total-row {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 1.2em;
-            color: #003B71;
-        }
+.total-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.2em;
+    color: #4CAF50;
+}
 
-        /* Style pour le pied de page */
-        .document-footer {
-            margin-top: 40px;
-            padding-top: 20px;
-            border-top: 1px solid #e0e0e0;
-            text-align: center;
-            color: #666;
-        }
+/* Style pour le pied de page */
+.document-footer {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid #e0e0e0;
+    text-align: center;
+    color: #666;
+}
 
-        /* Style pour l'impression */
-        @media print {
-            .pdf-download-btn {
-                display: none !important;
-            }
-            
-            body {
-                background-color: white;
-            }
-            
-            .payroll-template {
-                margin: 0;
-                box-shadow: none;
-            }
-        }
+/* Style pour l'impression */
+@media print {
+    .pdf-download-btn {
+        display: none !important;
+    }
+    
+    body {
+        background-color: white;
+    }
+    
+    .payroll-template {
+        margin: 0;
+        box-shadow: none;
+    }
+}
     </style>
 </head>
 <body>

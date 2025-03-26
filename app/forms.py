@@ -9,7 +9,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.core.exceptions import ValidationError
 from django.contrib.auth.password_validation import validate_password
 from django.contrib.auth.forms import PasswordChangeForm
-from .models import NotificationPreference
+from .models import InterpreterContract, NotificationPreference
 from .models import PayrollDocument, Service
 from django.forms import modelformset_factory
 import requests
@@ -919,3 +919,26 @@ ServiceFormSet = modelformset_factory(
     extra=1,
     can_delete=True
 )
+
+
+
+
+######form signature contract
+class InterpreterContractForm(forms.ModelForm):
+    interpreter_name_typed = forms.CharField(
+        max_length=255,
+        label="Interpreter Name (Typed)",
+        help_text="Please type your full name exactly as you want it to appear on the contract"
+    )
+    
+    agree_to_terms = forms.BooleanField(
+        required=True,
+        label="I have read and accept the terms of the contract"
+    )
+    
+    class Meta:
+        model = InterpreterContract
+        fields = ['interpreter_name_typed', 'email', 'phone', 'signature_data']
+        widgets = {
+            'signature_data': forms.HiddenInput(),  # Sera rempli via JavaScript
+        }
