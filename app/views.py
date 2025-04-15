@@ -1653,11 +1653,28 @@ class InterpreterRegistrationStep3View(FormView):
            for language_id in step2_data['languages']:
                interpreter.languages.add(language_id)
            
+           # Send welcome email with attached documents
+           from .utils.email_utils import send_interpreter_welcome_email
+           email_sent = send_interpreter_welcome_email(user, interpreter)
+           
+           if email_sent:
+               logger.info(f"Welcome email sent successfully to interpreter: {user.email}")
+           else:
+               logger.warning(f"Failed to send welcome email to interpreter: {user.email}")
+           
+           # Clear session data
            del self.request.session['dbdint:interpreter_registration_step1']
            del self.request.session['dbdint:interpreter_registration_step2']
 
+           # Log the user in
            login(self.request, user)
-           messages.success(self.request, 'Your interpreter account has been created successfully! Our team will review your application.')
+           
+           # Success message (with email status)
+           if email_sent:
+               messages.success(self.request, 'Your interpreter account has been created successfully! Our team will review your application. Check your email for important documents.')
+           else:
+               messages.success(self.request, 'Your interpreter account has been created successfully! Our team will review your application. (Note: We could not send your welcome email at this time.)')
+               
            return super().form_valid(form)
 
        except Exception as e:

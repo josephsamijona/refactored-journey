@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Système de Signature Électronique Avancé</title>
+    <!-- Polices d'écriture manuscrite de Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Caveat&family=Dancing+Script&family=Pacifico&family=Sacramento&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .document-container {
+            border: 1px solid #ccc;
+            padding: 20px;
+            margin-bottom: 20px;
+            min-height: 400px;
+            position: relative;
+        }
+        
+        #signature-pad {
+            border: 1px dashed #aaa;
+            border-radius: 4px;
+            cursor: crosshair;
+            margin-top: 20px;
+            background-color: #f9f9f9;
+        }
+        
+        .controls {
+            margin-top: 10px;
+            display: flex;
+            gap: 10px;
+        }
+        
+        .controls button {
+            padding: 8px 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        .controls button.clear {
+            background-color: #f44336;
+        }
+        
+        button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+        
+        .signature-image {
+            position: absolute;
+            z-index: 10;
+            max-width: 200px;
+            max-height: 100px;
+        }
+        
+        .draggable {
+            cursor: move;
+        }
+        
+        .completed {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #dff0d8;
+            border-radius: 4px;
+            display: none;
+        }
+        
+        .signature-options {
+            margin-top: 20px;
+        }
+        
+        .tab-buttons {
+            display: flex;
+            border-bottom: 1px solid #ccc;
+        }
+        
+        .tab-button {
+            padding: 10px 20px;
+            background-color: #f1f1f1;
+            border: none;
+            cursor: pointer;
+            margin-right: 5px;
+            border-radius: 5px 5px 0 0;
+        }
+        
+        .tab-button.active {
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-bottom: 1px solid #fff;
+            margin-bottom: -1px;
+        }
+        
+        .tab-content {
+            display: none;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-top: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .font-preview {
+            font-size: 28px;
+            margin-bottom: 15px;
+            min-height: 50px;
+        }
+        
+        .font-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .font-option {
+            padding: 8px 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        .font-option:hover, .font-option.selected {
+            background-color: #f0f0f0;
+            border-color: #999;
+        }
+        
+        input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+        
+        .drag-area {
+            border: 2px dashed #ccc;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            margin: 15px 0;
+            cursor: pointer;
+        }
+        
+        .drag-area.active {
+            border-color: #4CAF50;
+        }
+        
+        #preview-signature {
+            max-width: 200px;
+            max-height: 100px;
+            margin-top: 10px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Système de Signature Électronique Avancé</h1>
+    
+    <div class="document-container" id="document">
+        <h2>Contrat d'exemple</h2>
+        <p>Ce document est un exemple de contrat qui nécessite votre signature.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor, 
+           nisl eget ultricies tincidunt, nisl nisl aliquam nisl, eget ultricies 
+           nisl nisl sit amet nisl.</p>
+        <p>Date: <span id="current-date"></span></p>
+    </div>
+    
+    <div class="signature-options">
+        <h3>Choisissez votre méthode de signature :</h3>
+        
+        <div class="tab-buttons">
+            <button class="tab-button active" data-tab="draw">Dessiner</button>
+            <button class="tab-button" data-tab="type">Saisir texte</button>
+            <button class="tab-button" data-tab="upload">Uploader image</button>
+        </div>
+        
+        <div class="tab-content active" id="draw-tab">
+            <canvas id="signature-pad" width="600" height="200"></canvas>
+            <div class="controls">
+                <button id="clear-button" class="clear">Effacer</button>
+                <button id="apply-draw-button">Apposer la signature</button>
+            </div>
+        </div>
+        
+        <div class="tab-content" id="type-tab">
+            <label for="signature-text">Saisissez votre nom :</label>
+            <input type="text" id="signature-text" placeholder="Votre nom complet">
+            
+            <div class="font-preview" id="font-preview"></div>
+            
+            <p>Choisissez une police d'écriture :</p>
+            <div class="font-options">
+                <div class="font-option selected" data-font="'Dancing Script', cursive">
+                    <span style="font-family: 'Dancing Script', cursive;">Signature</span>
+                </div>
+                <div class="font-option" data-font="'Caveat', cursive">
+                    <span style="font-family: 'Caveat', cursive;">Signature</span>
+                </div>
+                <div class="font-option" data-font="'Sacramento', cursive">
+                    <span style="font-family: 'Sacramento', cursive;">Signature</span>
+                </div>
+                <div class="font-option" data-font="'Pacifico', cursive">
+                    <span style="font-family: 'Pacifico', cursive;">Signature</span>
+                </div>
+            </div>
+            
+            <div class="controls">
+                <button id="apply-text-button">Apposer la signature</button>
+            </div>
+        </div>
+        
+        <div class="tab-content" id="upload-tab">
+            <p>Téléchargez une image de votre signature :</p>
+            
+            <div class="drag-area" id="drag-area">
+                <div class="icon">
+                    <i>📁</i>
+                </div>
+                <span>Glissez-déposez ou cliquez pour parcourir</span>
+                <input type="file" id="signature-file" accept="image/*" hidden>
+            </div>
+            
+            <img id="preview-signature" src="" alt="Aperçu de la signature">
+            
+            <div class="controls">
+                <button id="apply-upload-button" disabled>Apposer la signature</button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="controls main-controls">
+        <button id="complete-button" disabled>Finaliser le document</button>
+    </div>
+    
+    <div class="completed" id="completed-message">
+        <h3>Document signé avec succès !</h3>
+        <p>Votre document a été signé électroniquement et peut maintenant être téléchargé.</p>
+        <button id="download-button">Télécharger le document signé</button>
+    </div>
+    
+    <script>
+        // Afficher la date actuelle
+        const today = new Date();
+        document.getElementById('current-date').textContent = today.toLocaleDateString();
+        
+        // Gestion des onglets
+        const tabButtons = document.querySelectorAll('.tab-button');
+        const tabContents = document.querySelectorAll('.tab-content');
+        
+        tabButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Activer le bouton
+                tabButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+                
+                // Afficher le contenu
+                const tabId = button.getAttribute('data-tab') + '-tab';
+                tabContents.forEach(content => {
+                    content.classList.remove('active');
+                });
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+        
+        // ONGLET 1: DESSINER
+        // Configuration du pad de signature
+        const canvas = document.getElementById('signature-pad');
+        const ctx = canvas.getContext('2d');
+        let isDrawing = false;
+        let lastX = 0;
+        let lastY = 0;
+        
+        // Configuration des styles du trait de signature
+        ctx.strokeStyle = '#000';
+        ctx.lineWidth = 2;
+        ctx.lineCap = 'round';
+        ctx.lineJoin = 'round';
+        
+        // Événements souris/tactile pour dessiner
+        function startDrawing(e) {
+            isDrawing = true;
+            // Ajuster les coordonnées en fonction du scroll et de la position du canvas
+            const rect = canvas.getBoundingClientRect();
+            lastX = e.clientX - rect.left;
+            lastY = e.clientY - rect.top;
+        }
+        
+        function draw(e) {
+            if (!isDrawing) return;
+            
+            const rect = canvas.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            ctx.beginPath();
+            ctx.moveTo(lastX, lastY);
+            ctx.lineTo(x, y);
+            ctx.stroke();
+            
+            lastX = x;
+            lastY = y;
+        }
+        
+        function stopDrawing() {
+            isDrawing = false;
+        }
+        
+        // Support souris
+        canvas.addEventListener('mousedown', startDrawing);
+        canvas.addEventListener('mousemove', draw);
+        canvas.addEventListener('mouseup', stopDrawing);
+        canvas.addEventListener('mouseout', stopDrawing);
+        
+        // Support tactile
+        canvas.addEventListener('touchstart', function(e) {
+            e.preventDefault();
+            const touch = e.touches[0];
+            const mouseEvent = new MouseEvent('mousedown', {
+                clientX: touch.clientX,
+                clientY: touch.clientY
+            });
+            canvas.dispatchEvent(mouseEvent);
+        });
+        
+        canvas.addEventListener('touchmove', function(e) {
+            e.preventDefault();
+            const touch = e.touches[0];
+            const mouseEvent = new MouseEvent('mousemove', {
+                clientX: touch.clientX,
+                clientY: touch.clientY
+            });
+            canvas.dispatchEvent(mouseEvent);
+        });
+        
+        canvas.addEventListener('touchend', function(e) {
+            e.preventDefault();
+            const mouseEvent = new MouseEvent('mouseup', {});
+            canvas.dispatchEvent(mouseEvent);
+        });
+        
+        // Effacer la signature
+        document.getElementById('clear-button').addEventListener('click', function() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        });
+        
+        // Apposer la signature dessinée
+        document.getElementById('apply-draw-button').addEventListener('click', function() {
+            // Vérifier si la signature n'est pas vide
+            const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
+            const pixelArray = Array.from(imageData);
+            const hasSignature = pixelArray.some(pixel => pixel !== 0);
+            
+            if (!hasSignature) {
+                alert('Veuillez d\'abord dessiner votre signature.');
+                return;
+            }
+            
+            // Convertir la signature en image
+            const signatureImage = document.createElement('img');
+            signatureImage.src = canvas.toDataURL('image/png');
+            signatureImage.className = 'signature-image draggable';
+            
+            // Ajouter la signature au document
+            applySignatureToDocument(signatureImage);
+        });
+        
+        // ONGLET 2: TEXTE & POLICE
+        const signatureText = document.getElementById('signature-text');
+        const fontPreview = document.getElementById('font-preview');
+        const fontOptions = document.querySelectorAll('.font-option');
+        let selectedFont = "'Dancing Script', cursive";
+        
+        // Mettre à jour l'aperçu lorsque l'utilisateur tape
+        signatureText.addEventListener('input', updateFontPreview);
+        
+        function updateFontPreview() {
+            fontPreview.style.fontFamily = selectedFont;
+            fontPreview.textContent = signatureText.value;
+        }
+        
+        // Sélection de la police
+        fontOptions.forEach(option => {
+            option.addEventListener('click', () => {
+                fontOptions.forEach(opt => opt.classList.remove('selected'));
+                option.classList.add('selected');
+                selectedFont = option.getAttribute('data-font');
+                updateFontPreview();
+            });
+        });
+        
+        // Apposer la signature texte
+        document.getElementById('apply-text-button').addEventListener('click', function() {
+            if (!signatureText.value.trim()) {
+                alert('Veuillez saisir votre nom.');
+                return;
+            }
+            
+            // Créer un élément canvas pour convertir le texte en image
+            const textCanvas = document.createElement('canvas');
+            const textCtx = textCanvas.getContext('2d');
+            
+            // Configurer le canvas
+            textCanvas.width = 400;
+            textCanvas.height = 100;
+            
+            // Dessiner le texte
+            textCtx.fillStyle = '#000';
+            textCtx.font = `36px ${selectedFont}`;
+            textCtx.fillText(signatureText.value, 10, 50);
+            
+            // Convertir en image
+            const signatureImage = document.createElement('img');
+            signatureImage.src = textCanvas.toDataURL('image/png');
+            signatureImage.className = 'signature-image draggable';
+            
+            // Ajouter la signature au document
+            applySignatureToDocument(signatureImage);
+        });
+        
+        // ONGLET 3: UPLOAD D'IMAGE
+        const dragArea = document.getElementById('drag-area');
+        const fileInput = document.getElementById('signature-file');
+        const previewSignature = document.getElementById('preview-signature');
+        const applyUploadButton = document.getElementById('apply-upload-button');
+        
+        // Ouvrir le sélecteur de fichier au clic sur la zone
+        dragArea.addEventListener('click', () => {
+            fileInput.click();
+        });
+        
+        // Glisser-déposer
+        dragArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dragArea.classList.add('active');
+        });
+        
+        dragArea.addEventListener('dragleave', () => {
+            dragArea.classList.remove('active');
+        });
+        
+        dragArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dragArea.classList.remove('active');
+            
+            const file = e.dataTransfer.files[0];
+            processUploadedFile(file);
+        });
+        
+        // Sélection de fichier
+        fileInput.addEventListener('change', function() {
+            const file = this.files[0];
+            processUploadedFile(file);
+        });
+        
+        function processUploadedFile(file) {
+            if (!file || !file.type.match('image.*')) {
+                alert('Veuillez sélectionner une image.');
+                return;
+            }
+            
+            const reader = new FileReader();
+            
+            reader.onload = function(e) {
+                previewSignature.src = e.target.result;
+                previewSignature.style.display = 'block';
+                applyUploadButton.disabled = false;
+            };
+            
+            reader.readAsDataURL(file);
+        }
+        
+        // Apposer la signature uploadée
+        applyUploadButton.addEventListener('click', function() {
+            if (!previewSignature.src) {
+                alert('Veuillez d\'abord télécharger une image de signature.');
+                return;
+            }
+            
+            const signatureImage = document.createElement('img');
+            signatureImage.src = previewSignature.src;
+            signatureImage.className = 'signature-image draggable';
+            
+            // Ajouter la signature au document
+            applySignatureToDocument(signatureImage);
+        });
+        
+        // Fonction commune pour appliquer la signature au document
+        function applySignatureToDocument(signatureImage) {
+            // Placer la signature dans le document
+            signatureImage.style.left = '50px';
+            signatureImage.style.top = '300px';
+            document.getElementById('document').appendChild(signatureImage);
+            
+            // Supprimer toute signature existante précédemment
+            const existingSignatures = document.querySelectorAll('.signature-image');
+            if (existingSignatures.length > 1) {
+                for (let i = 0; i < existingSignatures.length - 1; i++) {
+                    existingSignatures[i].remove();
+                }
+            }
+            
+            // Rendre la signature déplaçable
+            makeElementDraggable(signatureImage);
+            
+            // Activer le bouton de finalisation
+            document.getElementById('complete-button').disabled = false;
+        }
+        
+        // Fonction pour rendre un élément déplaçable
+        function makeElementDraggable(element) {
+            let posX = 0, posY = 0, posInitX = 0, posInitY = 0;
+            
+            element.onmousedown = dragMouseDown;
+            
+            function dragMouseDown(e) {
+                e = e || window.event;
+                e.preventDefault();
+                
+                posInitX = e.clientX;
+                posInitY = e.clientY;
+                
+                document.onmouseup = closeDragElement;
+                document.onmousemove = elementDrag;
+            }
+            
+            function elementDrag(e) {
+                e = e || window.event;
+                e.preventDefault();
+                
+                posX = posInitX - e.clientX;
+                posY = posInitY - e.clientY;
+                posInitX = e.clientX;
+                posInitY = e.clientY;
+                
+                element.style.top = (element.offsetTop - posY) + "px";
+                element.style.left = (element.offsetLeft - posX) + "px";
+            }
+            
+            function closeDragElement() {
+                document.onmouseup = null;
+                document.onmousemove = null;
+            }
+        }
+        
+        // Finaliser le document
+        document.getElementById('complete-button').addEventListener('click', function() {
+            // Dans une application réelle, vous pourriez :
+            // 1. Envoyer l'image de signature et les données du document au serveur
+            // 2. Générer un PDF avec la signature incrustée
+            // 3. Stocker les métadonnées (date, IP, etc.) pour des raisons légales
+            
+            // Afficher le message de confirmation
+            document.getElementById('completed-message').style.display = 'block';
+            
+            // Désactiver les boutons
+            this.disabled = true;
+            document.querySelectorAll('.tab-content button').forEach(btn => {
+                btn.disabled = true;
+            });
+            
+            // Désactiver les interactions
+            canvas.style.pointerEvents = 'none';
+            signatureText.disabled = true;
+            fileInput.disabled = true;
+            dragArea.style.pointerEvents = 'none';
+            
+            // Simuler un téléchargement pour l'exemple
+            document.getElementById('download-button').addEventListener('click', function() {
+                alert('Dans une application réelle, le document signé serait téléchargé ou envoyé par e-mail.');
+            });
+        });
+    </script>
+</body>
+</html>

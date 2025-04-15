@@ -1,0 +1,128 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Offer - CGSD Logistics</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: white;
+            border: 1px solid #ddd;
+        }
+        .header {
+            background-color: #0f1f14;
+            padding: 20px;
+            text-align: center;
+        }
+        .logo {
+            width: 150px;
+            height: auto;
+        }
+        .content {
+            padding: 30px;
+            line-height: 1.6;
+        }
+        .footer {
+            background-color: #0f1f14;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 14px;
+        }
+        h1, h2 {
+            color: #4CAF50;
+        }
+        .slogan {
+            color: #4CAF50;
+            font-style: italic;
+            margin-top: 5px;
+        }
+        .signature {
+            margin-top: 30px;
+            border-top: 1px solid #eee;
+            padding-top: 20px;
+        }
+        .contact-info {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-left: 4px solid #4CAF50;
+        }
+        .attachments {
+            background-color: #f5f5f5;
+            padding: 15px;
+            border-radius: 4px;
+            margin-top: 20px;
+        }
+        .attachments h3 {
+            margin-top: 0;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <img src="https://cgsdlogistics.com/assets/logo-DOva_j7z.png" alt="CGSD Logistics Logo" class="logo">
+            <div class="slogan">Allow us to be your voice</div>
+        </div>
+        
+        <div class="content">
+            <h1>Welcome to CGSD Logistics!</h1>
+            
+            <p>Dear {{ first_name }} {{ last_name }},</p>
+            
+            <p>It is with great pleasure that we welcome you to CGSD LOGISTICS as a Medical Interpreter. We are confident that your skills and experience will be valuable assets to our company and the clients we serve.</p>
+            
+            <p>Our mission is to offer professional guidelines for translation and interpretation, thereby equipping individuals with limited English proficiency with the necessary tools to communicate effectively, enhance their lives, and achieve their goals.</p>
+            
+            <h2>Important Information:</h2>
+            <ul>
+                <li>Position: Medical Interpreter (Contract)</li>
+                <li>Direct Report: Jasme, Scheduling Manager</li>
+                <li>Remuneration: Based on language (see offer letter for details)</li>
+                <li>Minimum appointment time: 2 hours</li>
+            </ul>
+            
+            <div class="attachments">
+                <h3>Attached Documents:</h3>
+                <p>Please find attached the following important documents:</p>
+                <ol>
+                    <li><strong>Offer Letter</strong> - Detailing working conditions, remuneration based on interpretation language, and procedures to follow.</li>
+                    <li><strong>CGSD Logistics Policy</strong> - Outlining our company policies, code of conduct, and operational standards that all interpreters must adhere to.</li>
+                </ol>
+                <p>We invite you to review both documents carefully, sign the offer letter, and return it to us at your earliest convenience.</p>
+            </div>
+            
+            <div class="contact-info">
+                <p><strong>If you have any questions, please don't hesitate to reach out:</strong><br>
+                Email: CGSLOGISTICS@GMAIL.COM<br>
+                Phone: (774) 564-8187<br>
+                Website: https://cgsdlogistics.com</p>
+            </div>
+            
+            <div class="signature">
+                <p>Sincerely,</p>
+                <p><strong>Cassy Delice</strong><br>
+                Chief Executive Officer/President<br>
+                CGSD Logistics</p>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>CGSD LOGISTICS &copy; {% now "Y" %} | "Allow us to be your voice"</p>
+            <p>CGSLOGISTICS@GMAIL.COM | (774) 564-8187 | https://cgsdlogistics.com</p>
+        </div>
+    </div>
+</body>
+</html>
